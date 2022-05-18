@@ -31,14 +31,9 @@ class MainActivity : AppCompatActivity() {
             published = "12 мая в 19:22",
 //            likedByMe = false
         )
-        binding.likes.setOnClickListener {
-            post.likedByMe = !post.likedByMe
-            val imageResLiked =
-                if (post.likedByMe) R.drawable.ic_liked_24dp else R.drawable.ic_like_24dp
-            binding.likes.setImageResource(imageResLiked)
+        binding.root.setOnClickListener {
+            print("Поехалиииии")
         }
-
-
         binding.render(post)
         binding.likes.setOnClickListener {
             post.likedByMe = !post.likedByMe
@@ -73,22 +68,16 @@ class MainActivity : AppCompatActivity() {
         if (liked) like + 1 else like - 1
 
     private fun reductionNumbers(count: Int): String {
-        return if (count in 0..999) count.toString()
-        else {
-            val stepCount = count.toString().length
-            val member: Int
-            if (stepCount in 4..6) {
-                member = count / 10.pow(2)
-                if (member % 10 == 0) "${member / 10}K"
-                else "${member / 10}.${member % 10}K"
-            } else {
-                member = (count / 1000) / 10.pow(2)
-                if (member % 10 == 0) "${member / 10}M"
-                else "${member / 10}.${member % 10}M"
-            }
+        return when (count) {
+            in 0..999 -> count.toString()
+            in 1000..1099 -> "${count / 1000}K"
+            in 1100..9999 -> "${count / 1000}.${count % 10}K"
+            in 10_000..999_999 -> "${count / 1000}K"
+            in 1_000_000..1_099_999 -> "${count / 1_000_000}M"
+            else -> "${(count / 10.pow(2)) / 10_000}.${((count / 1000) / 10.pow(2)) % 10}M"
         }
     }
-
-    private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
-
 }
+
+private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
+
