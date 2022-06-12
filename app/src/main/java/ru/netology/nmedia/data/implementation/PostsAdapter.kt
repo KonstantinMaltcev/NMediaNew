@@ -41,9 +41,7 @@ class PostsAdapter(
 
 
     inner class ViewHolder(
-        private val binding: PostBinding,
-//    private val onLikeListener: OnLi,
-//    private val onShareListener: OnShareListener
+        private val binding: PostBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -73,14 +71,11 @@ class PostsAdapter(
             }
         }
 
-
         private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
 
         @DrawableRes
         private fun getLikeIconResId(liked: Boolean) =
             if (liked) R.drawable.ic_liked_24dp else R.drawable.ic_like_24dp
-
-
     }
 }
 

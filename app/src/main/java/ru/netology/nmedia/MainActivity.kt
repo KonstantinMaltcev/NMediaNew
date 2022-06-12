@@ -11,8 +11,6 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<PostViewModel>()
 
-    private val tag by lazy { "ActivityMain" }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding.postsRecyclerView.adapter = adapter
 
         viewModel.data.observe(this) { posts ->
-            posts.map { post ->
+            posts.map {
                 adapter.submitList(posts)
             }
         }

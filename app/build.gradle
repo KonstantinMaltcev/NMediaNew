@@ -6,9 +6,6 @@ plugins {
 android {
     compileSdk 32
 
-    aaptOptions {
-        cruncherEnabled = false
-    }
 
     defaultConfig {
         applicationId "ru.netology.nmedia"
