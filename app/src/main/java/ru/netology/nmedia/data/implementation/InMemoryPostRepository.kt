@@ -39,13 +39,13 @@ class InMemoryPostRepository : PostRepository {
     override fun shareById(id: Long) {
         data.value = posts.map {
             if (it.id != id) it else {
-                it.copy(shares = +1)
+                it.copy(shares = it.shares + 1)
             }
         }
     }
 
 
     private fun countLikeByMe(liked: Boolean, like: Int) =
-        if (liked) like + 1 else like - 1
+        if (liked) like - 1 else like + 1
 
 }
