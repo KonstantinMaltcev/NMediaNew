@@ -3,4 +3,8 @@
     <string name="hello">Hello world!</string>
     <string name="avatar_description">Avatar</string>
     <string name="avatar">Avatar</string>
+    <string name="remove">Remove</string>
+    <string name="description_post_like">Description_post_like</string>
+    <string name="post_text">Post text</string>
+    <string name="edit">Edit</string>
 </resources>

@@ -3,5 +3,9 @@
     <string name="app_name">НМедиа</string>
     <string name="hello">Привет, НМедиа!</string>
     <string name="avatar">Аватарка</string>
-    <string name="avatar_description">аватар автора поста</string>
+    <string name="avatar_description">Аватар автора поста</string>
+    <string name="remove">Удалить</string>
+    <string name="description_post_like">description_post_like</string>
+    <string name="post_text">Содержимое поста</string>
+    <string name="edit">Изменить</string>
 </resources>

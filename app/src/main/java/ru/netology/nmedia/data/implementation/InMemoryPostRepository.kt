@@ -7,14 +7,15 @@ import ru.netology.nmedia.dto.Post
 
 class InMemoryPostRepository : PostRepository {
 
+    private var nextId = GENERATED_AMOUNT_POST.toLong()
+
     override val data = MutableLiveData(
-        List(100) { index ->
+        List(GENERATED_AMOUNT_POST) { index ->
             Post(
                 id = index + 1L,
                 author = "Константин Мальцев",
-                content = "Text $index som content: Главным методом обогащения сульфидных цинковых руд является флотация – способ, основанный на различии в смачиваемости поверхности частичек рудного минерала и частичек пустой породы. \n" +
-                        "Сульфиды металлов относятся к категории плохо смачиваемых водой – к гидрофобным материалам. Минералы пустой породы (силикаты, оксиды, карбонаты) хорошо смачиваются водой – являются гидрофильными. \n",
-                published = "$index мая в 19:22"
+                content = "Text $index som content: Какойто текст.......",
+                published = "17.06.2022"
             )
         }
     )
@@ -44,8 +45,34 @@ class InMemoryPostRepository : PostRepository {
         }
     }
 
+    override fun removeById(id: Long) {
+        data.value = posts.filter { it.id != id }
+    }
+
+    override fun save(post: Post) {
+        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
+    }
+
+    private fun insert(post: Post) {
+        data.value = listOf(
+            post.copy(
+                id = ++nextId
+            )
+        ) + posts
+    }
+
+    private fun update(post: Post) {
+        data.value = posts.map {
+            if (post.id == it.id) post else it
+        }
+    }
+
 
     private fun countLikeByMe(liked: Boolean, like: Int) =
         if (liked) like - 1 else like + 1
 
+
+    private companion object {
+        const val GENERATED_AMOUNT_POST = 1000
+    }
 }

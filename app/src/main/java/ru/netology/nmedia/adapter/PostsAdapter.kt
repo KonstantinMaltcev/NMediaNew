@@ -1,7 +1,9 @@
-package ru.netology.nmedia.data.implementation
+package ru.netology.nmedia.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,15 +14,14 @@ import ru.netology.nmedia.dto.Post
 
 
 class PostsAdapter(
-    private val onLikeListener: (Post) -> Unit,
-    private val onShareListener: (Post) -> Unit
+    private val interactionListener: PostInteractionListener
 ) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallBack) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = PostBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, interactionListener)
     }
 
 
@@ -41,9 +42,37 @@ class PostsAdapter(
 
 
     inner class ViewHolder(
-        private val binding: PostBinding
+        private val binding: PostBinding,
+        listener: PostInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        private lateinit var post: Post
+
+        init {
+            binding.likes.setOnClickListener {
+                listener.onLikeClicked(post)
+            }
+        }
+
+        private val popupMenu by lazy {
+            PopupMenu(itemView.context, binding.menu).apply {
+                inflate(R.menu.options_post)
+                setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.remove -> {
+                            listener.onRemoveClicked(post)
+                            true
+                        }
+                        R.id.edit -> {
+                            listener.onEditClicked(post)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                Log.e("Error", "Bad work")
+            }
+        }
 
         fun bind(post: Post) = with(binding) {
             authorName.text = post.author
@@ -52,13 +81,11 @@ class PostsAdapter(
             amountLikes.text = reductionNumbers(post.likes)
             amountShare.text = reductionNumbers(post.shares)
             likes.setImageResource(getLikeIconResId(post.likedByMe))
-            likes.setOnClickListener {
-                onLikeListener(post)
-            }
-            share.setOnClickListener {
-                onShareListener(post)
-            }
+            likes.setOnClickListener { interactionListener.onLikeClicked(post) }
+            share.setOnClickListener { interactionListener.onShareClicked(post) }
+            menu.setOnClickListener { popupMenu.show() }
         }
+
 
         private fun reductionNumbers(count: Int): String {
             return when (count) {
