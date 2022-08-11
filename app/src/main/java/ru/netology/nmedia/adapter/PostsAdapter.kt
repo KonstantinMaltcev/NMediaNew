@@ -1,6 +1,5 @@
 package ru.netology.nmedia.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -20,10 +19,9 @@ class PostsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = PostBinding.inflate(inflater, parent, false)
+        val binding = PostBinding.inflate(inflater, parent, /*attach to parent*/ false)
         return ViewHolder(binding, interactionListener)
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -34,10 +32,8 @@ class PostsAdapter(
         override fun areItemsTheSame(oldItem: Post, newItem: Post) =
             oldItem.id == newItem.id
 
-
         override fun areContentsTheSame(oldItem: Post, newItem: Post) =
             oldItem == newItem
-
     }
 
 
@@ -52,6 +48,7 @@ class PostsAdapter(
             binding.likes.setOnClickListener {
                 listener.onLikeClicked(post)
             }
+            binding.menu.setOnClickListener { popupMenu.show() }
         }
 
         private val popupMenu by lazy {
@@ -70,20 +67,23 @@ class PostsAdapter(
                         else -> false
                     }
                 }
-                Log.e("Error", "Bad work")
             }
         }
 
-        fun bind(post: Post) = with(binding) {
-            authorName.text = post.author
-            published.text = post.published
-            postText.text = post.content
-            amountLikes.text = reductionNumbers(post.likes)
-            amountShare.text = reductionNumbers(post.shares)
-            likes.setImageResource(getLikeIconResId(post.likedByMe))
-            likes.setOnClickListener { interactionListener.onLikeClicked(post) }
-            share.setOnClickListener { interactionListener.onShareClicked(post) }
-            menu.setOnClickListener { popupMenu.show() }
+        fun bind(post: Post) {
+            this.post = post
+            with(binding) {
+                authorName.text = post.author
+                published.text = post.published
+                postText.text = post.content
+                likes.text = reductionNumbers(post.likes)
+                amountShare.text = reductionNumbers(post.shares)
+                likes.isChecked = post.likedByMe
+
+//                likes.setOnClickListener { interactionListener.onLikeClicked(post) }
+                share.setOnClickListener { interactionListener.onShareClicked(post) }
+
+            }
         }
 
 
@@ -100,9 +100,9 @@ class PostsAdapter(
 
         private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
 
-        @DrawableRes
-        private fun getLikeIconResId(liked: Boolean) =
-            if (liked) R.drawable.ic_liked_24dp else R.drawable.ic_like_24dp
+//        @DrawableRes
+//        private fun getLikeIconResId(liked: Boolean) =
+//            if (liked) R.drawable.ic_liked_24dp else R.drawable.ic_like_24dp
     }
 }
 

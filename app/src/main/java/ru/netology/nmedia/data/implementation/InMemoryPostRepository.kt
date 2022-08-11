@@ -20,11 +20,14 @@ class InMemoryPostRepository : PostRepository {
         }
     )
 
-    private val posts
+    private var posts
         get() =
             checkNotNull(data.value) {
                 Log.e("error", "Data value should be not null")
             }
+        set(value) {
+            data.value = value
+        }
 
     override fun likeById(id: Long) {
         data.value = posts.map {
@@ -62,9 +65,10 @@ class InMemoryPostRepository : PostRepository {
     }
 
     private fun update(post: Post) {
-        data.value = posts.map {
+        val content = posts.map {
             if (post.id == it.id) post else it
         }
+        data.value = content
     }
 
 

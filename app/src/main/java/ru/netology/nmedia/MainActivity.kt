@@ -1,7 +1,9 @@
 package ru.netology.nmedia
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<PostViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,8 +44,7 @@ class MainActivity : AppCompatActivity() {
                 if (content != null) {
                     requestFocus()
                     showKeyboard()
-                }
-                else {
+                } else {
                     clearFocus()
                     hideKeyboard()
                 }
@@ -50,7 +52,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-

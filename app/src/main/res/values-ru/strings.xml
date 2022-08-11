@@ -5,7 +5,8 @@
     <string name="avatar">Аватарка</string>
     <string name="avatar_description">Аватар автора поста</string>
     <string name="remove">Удалить</string>
-    <string name="description_post_like">description_post_like</string>
+    <string name="description_post_like">Описание поста</string>
     <string name="post_text">Содержимое поста</string>
     <string name="edit">Изменить</string>
+    <string name="cancel_edit">cancel edit</string>
 </resources>

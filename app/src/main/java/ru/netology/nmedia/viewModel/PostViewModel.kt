@@ -11,9 +11,11 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     private val repository: PostRepository = InMemoryPostRepository()
 
-    val data = repository.data
+    val data get() = repository.data
+
 
     val currentPost = MutableLiveData<Post?>(null)
+    private val editPosts = MutableLiveData<Post?>(null)
 
     fun onSaveButtonClicked(content: String) {
         if (content.isBlank()) return
@@ -30,7 +32,6 @@ class PostViewModel : ViewModel(), PostInteractionListener {
         currentPost.value = null
     }
 
-
     // region PostInteractionListener
 
     override fun onLikeClicked(post: Post) = repository.likeById(post.id)
@@ -41,6 +42,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     override fun onEditClicked(post: Post) {
         currentPost.value = post
+        editPosts.value = post
     }
 
     // endregion PostInteractionListener
