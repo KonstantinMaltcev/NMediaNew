@@ -15,26 +15,7 @@
         app:layout_constraintBottom_toTopOf="@id/toolsTopBarrier"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/post" />
-
-    <ImageButton
-        android:id="@+id/cancel_edit"
-        android:layout_width="53dp"
-        android:layout_height="51dp"
-        android:contentDescription="@string/cancel_edit"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@id/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_cancel_24"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="cancel_edit, save"
-        tools:ignore="MissingConstraints" />
-
-
+    
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/toolsTopBarrier"
         android:layout_width="wrap_content"

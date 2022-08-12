@@ -14,8 +14,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     val data get() = repository.data
 
 
-    val currentPost = MutableLiveData<Post?>(null)
-    private val editPosts = MutableLiveData<Post?>(null)
+    val currentPost = MutableLiveData<Post?>(/*value*/null)
 
     fun onSaveButtonClicked(content: String) {
         if (content.isBlank()) return
@@ -42,7 +41,6 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     override fun onEditClicked(post: Post) {
         currentPost.value = post
-        editPosts.value = post
     }
 
     // endregion PostInteractionListener

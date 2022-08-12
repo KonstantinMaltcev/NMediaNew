@@ -30,14 +30,17 @@
         app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="Author name" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
+        style="@style/Widget.AppTheme.MenuCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:checkable="true"
         android:src="@drawable/ic_menu_24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/author_name"
         tools:ignore="MissingConstraints" />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/published"
@@ -50,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="@id/author_name"
         app:layout_constraintStart_toEndOf="@id/avatar_image"
         app:layout_constraintTop_toBottomOf="@id/author_name"
-        tools:text="09.05.2022" />
+        tools:text="09.08.2022" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
@@ -75,26 +78,16 @@
         app:layout_constraintTop_toBottomOf="@id/postText"
         tools:text="1000" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/share"
+        style="@style/Widget.AppTheme.ShareCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_share_24dp"
+        android:checkable="true"
         app:layout_constraintStart_toEndOf="@id/likes"
-        app:layout_constraintTop_toBottomOf="@id/postText" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/amount_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@id/share"
         app:layout_constraintTop_toBottomOf="@id/postText"
-        tools:text="100000" />
+        tools:text="100" />
+
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/looking"

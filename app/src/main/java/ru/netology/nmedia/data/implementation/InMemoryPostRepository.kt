@@ -43,7 +43,9 @@ class InMemoryPostRepository : PostRepository {
     override fun shareById(id: Long) {
         data.value = posts.map {
             if (it.id != id) it else {
-                it.copy(shares = it.shares + 1)
+                it.copy(
+                    shares = countShareByMe(it.shares)
+                )
             }
         }
     }
@@ -75,6 +77,7 @@ class InMemoryPostRepository : PostRepository {
     private fun countLikeByMe(liked: Boolean, like: Int) =
         if (liked) like - 1 else like + 1
 
+    private fun countShareByMe(share: Int) = share + 1
 
     private companion object {
         const val GENERATED_AMOUNT_POST = 1000
