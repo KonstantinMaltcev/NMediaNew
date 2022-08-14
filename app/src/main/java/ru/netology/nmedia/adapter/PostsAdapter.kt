@@ -48,6 +48,7 @@ class PostsAdapter(
                 listener.onLikeClicked(post)
             }
             binding.menu.setOnClickListener { popupMenu.show() }
+            binding.share.setOnClickListener { listener.onShareClicked(post) }
         }
 
         private val popupMenu by lazy {
@@ -59,7 +60,7 @@ class PostsAdapter(
                             listener.onRemoveClicked(post)
                             true
                         }
-                        R.id.edit -> {
+                        R.id.edit_post -> {
                             listener.onEditClicked(post)
                             true
                         }

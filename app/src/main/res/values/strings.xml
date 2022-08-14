@@ -8,4 +8,8 @@
     <string name="post_text">Post text</string>
     <string name="edit">Edit</string>
     <string name="cancel_edit">cancel edit</string>
+    <string name="chooser_share_post">Share post</string>
+    <string name="description_post_save">Save new post</string>
+    <string name="text_is_blank">Incoming text is empty </string>
+    <string name="unknown_type" >Incoming type is unknown</string>
 </resources>
