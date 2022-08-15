@@ -79,7 +79,6 @@ class PostsAdapter(
                 likes.text = reductionNumbers(post.likes)
                 share.text = reductionNumbers(post.shares)
                 likes.isChecked = post.likedByMe
-//                share.isChecked = true
             }
         }
 

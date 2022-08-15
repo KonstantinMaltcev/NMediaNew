@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.utils.hideKeyboard
+import ru.netology.nmedia.utils.showKeyboard
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -29,25 +31,21 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitList(posts)
             }
         }
-//        binding.save.setOnClickListener {
-//            with(binding.content) {
-//                val content = text.toString()
-//                viewModel.onSaveButtonClicked(content)
-//            }
-//        }
-//        viewModel.currentPost.observe(this) { currentPost ->
-//            with(binding.content) {
-//                val content = currentPost?.content
-//                setText(content)
-//                if (content != null) {
-//                    requestFocus()
-//                    showKeyboard()
-//                } else {
-//                    clearFocus()
-//                    hideKeyboard()
-//                }
-//            }
-//        }
+
+        viewModel.currentPost.observe(this) { currentPost ->
+            with(binding.content) {
+                val content = currentPost?.content
+                setText(content)
+                if (content != null) {
+                    requestFocus()
+                    showKeyboard()
+                } else {
+                    clearFocus()
+                    hideKeyboard()
+                }
+            }
+        }
+
         viewModel.sharePostContent.observe(this) { post ->
             val intent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -63,8 +61,16 @@ class MainActivity : AppCompatActivity() {
             postContent?.let(viewModel::onSaveButtonClicked)
         }
         binding.save.setOnClickListener {
-
             activityLauncher.launch(Unit)
+        }
+
+
+        val editActivityLauncher = registerForActivityResult(EditResultContract())
+        {
+            it?.let(viewModel::onSaveButtonClicked)
+        }
+        viewModel.currentPost.observe(this) {
+            editActivityLauncher.launch(Unit)
         }
     }
 }
