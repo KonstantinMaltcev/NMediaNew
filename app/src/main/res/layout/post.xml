@@ -30,14 +30,17 @@
         app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="Author name" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
+        style="@style/Widget.AppTheme.MenuCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:checkable="true"
         android:src="@drawable/ic_menu_24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/author_name"
         tools:ignore="MissingConstraints" />
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/published"
@@ -50,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="@id/author_name"
         app:layout_constraintStart_toEndOf="@id/avatar_image"
         app:layout_constraintTop_toBottomOf="@id/author_name"
-        tools:text="09.05.2022" />
+        tools:text="09.08.2022" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
@@ -65,50 +68,26 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/barrier1" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
+        style="@style/Widget.AppTheme.LikeCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_like_24dp"
-        app:layout_constraintEnd_toStartOf="@id/amount_likes"
+        android:checkable="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postText" />
+        app:layout_constraintTop_toBottomOf="@id/postText"
+        tools:text="1000" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/amount_likes"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/share"
+        style="@style/Widget.AppTheme.ShareCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="24dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@id/share"
+        android:checkable="true"
         app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toBottomOf="@id/postText"
-        tools:text="5000" />
+        tools:text="100" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_share_24dp"
-        app:layout_constraintStart_toEndOf="@id/amount_likes"
-        app:layout_constraintTop_toBottomOf="@id/postText" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/amount_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@id/share"
-        app:layout_constraintTop_toBottomOf="@id/postText"
-        tools:text="100000" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/looking"
