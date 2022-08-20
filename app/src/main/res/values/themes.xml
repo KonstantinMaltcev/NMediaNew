@@ -34,4 +34,11 @@
         <item name="android:minWidth">@dimen/icon_button_min_size</item>
         <item name="android:minHeight">@dimen/icon_button_min_size</item>
     </style>
+
+    <style name="Widget.AppTheme.VideoShare" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+    <item name="icon">@mipmap/ic_video_24dp</item>
+    <item name="iconTint">?attr/colorControlNormal</item>
+    <item name="android:minWidth">@dimen/icon_button_min_size</item>
+    <item name="android:minHeight">@dimen/icon_button_min_size</item>
+</style>
 </resources>

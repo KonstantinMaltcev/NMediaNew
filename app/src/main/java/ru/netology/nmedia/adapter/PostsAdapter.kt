@@ -6,6 +6,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.PostBinding
 import ru.netology.nmedia.dto.Post
@@ -14,7 +15,6 @@ import ru.netology.nmedia.dto.Post
 class PostsAdapter(
     private val interactionListener: PostInteractionListener
 ) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallBack) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -44,11 +44,15 @@ class PostsAdapter(
         private lateinit var post: Post
 
         init {
-            binding.likes.setOnClickListener {
-                listener.onLikeClicked(post)
-            }
+            binding.likes.setOnClickListener { listener.onLikeClicked(post) }
             binding.menu.setOnClickListener { popupMenu.show() }
             binding.share.setOnClickListener { listener.onShareClicked(post) }
+            binding.playVideo.setOnClickListener {
+                listener.onShareUriClicked(post)
+            }
+            binding.videoImage.setOnClickListener {
+                listener.onShareUriClicked(post)
+            }
         }
 
         private val popupMenu by lazy {
@@ -96,4 +100,3 @@ class PostsAdapter(
         private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
     }
 }
-

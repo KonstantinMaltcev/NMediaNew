@@ -15,7 +15,8 @@ class InMemoryPostRepository : PostRepository {
                 id = index + 1L,
                 author = "Константин Мальцев",
                 content = "Text $index som content: Какойто текст.......",
-                published = "17.06.2022"
+                published = "17.06.2022",
+                video = "https://www.youtube.com/user/androiddevelopers"
             )
         }
     )
@@ -50,6 +51,17 @@ class InMemoryPostRepository : PostRepository {
         }
     }
 
+    override fun shareUriById(id: Long) {
+//        data.value = posts.map {
+//            if (it.id != id) it else {
+//                it.copy(
+//                    video = it.video
+//                )
+//            }
+//        }
+        data.value = posts.filter { it.id == id }
+    }
+
     override fun removeById(id: Long) {
         data.value = posts.filter { it.id != id }
     }
@@ -72,7 +84,6 @@ class InMemoryPostRepository : PostRepository {
         }
         data.value = content
     }
-
 
     private fun countLikeByMe(liked: Boolean, like: Int) =
         if (liked) like - 1 else like + 1

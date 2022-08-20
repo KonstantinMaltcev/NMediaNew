@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,15 @@ class MainActivity : AppCompatActivity() {
             val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
             startActivity(shareIntent)
         }
+        viewModel.sharePostUriContent.observe(this) { post ->
+            val intentVideo = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(post.video)
+                type = "video/*"
+            }
+            val shareIntent = Intent.createChooser(intentVideo, getString(R.string.play))
+            startActivity(shareIntent)
+        }
 
         val activityLauncher = registerForActivityResult(PostResultContract())
         { postContent: String? ->
@@ -64,13 +74,13 @@ class MainActivity : AppCompatActivity() {
             activityLauncher.launch(Unit)
         }
 
-
         val editActivityLauncher = registerForActivityResult(EditResultContract())
         {
-            it?.let(viewModel::onSaveButtonClicked)
+            it?.let(viewModel::onEditButtonClicked)
         }
-        viewModel.currentPost.observe(this) {
-            editActivityLauncher.launch(Unit)
+        viewModel.editedPost.observe(this) {
+            if (it != null)
+                editActivityLauncher.launch(Unit)
         }
     }
 }

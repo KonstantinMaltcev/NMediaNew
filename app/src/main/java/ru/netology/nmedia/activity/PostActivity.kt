@@ -2,43 +2,40 @@ package ru.netology.nmedia.activity
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.R
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.implementation.InMemoryPostRepository
 import ru.netology.nmedia.databinding.ActivityPostBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.utils.SingleLiveEvent
 import ru.netology.nmedia.utils.hideKeyboard
 import ru.netology.nmedia.utils.showKeyboard
 
 class PostActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
         val newCurrentPost = MutableLiveData<Post?>(null)
-        val repository: PostRepository = InMemoryPostRepository()
-
 
         val binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        fun onEditButtonClicked(content: String) {
-            if (content.isBlank()) return
-
-            val editPost = newCurrentPost.value?.copy(
-                content = content
-            ) ?: Post(
-                id = PostRepository.NEW_POST_ID,
-                author = "Konstantin",
-                content = content,
-                published = "18/06/2022"
-            )
-            repository.save(editPost)
-            newCurrentPost.value = null
-        }
-
+            // пока не надо
+//        fun onEditButtonClicked(content: String) {
+//            if (content.isBlank()) return
+//
+//            val editPost = newCurrentPost.value?.copy(
+//                content = content
+//            ) ?: Post(
+//                id = PostRepository.NEW_POST_ID,
+//                author = "Konstantin",
+//                content = content,
+//                published = "18/06/2022"
+//            )
+//            repository.save(editPost)
+//            newCurrentPost.value = null
+//        }
+//
 
         binding.editPost.requestFocus()
         binding.editPost.setOnClickListener {

@@ -11,6 +11,9 @@
     <string name="cancel_edit">отменить редактирование</string>
     <string name="chooser_share_post"> Поделиться с окружением </string>
     <string name="description_post_save">Сохранить новый пост</string>
-    <string name="text_is_blank" translatable="false">Входящий текст пустой</string>
-    <string name="unknown_type">Тип входящихданных неизвестен</string>
+    <string name="text_is_blank" >Входящий текст пустой</string>
+    <string name="unknown_type">Тип входящих данных неизвестен!</string>
+    <string name="video_image">Видео</string>
+    <string name="Content">текст поста</string>
+    <string name="play">Воспроизвести</string> />
 </resources>
