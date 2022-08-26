@@ -8,5 +8,12 @@
     <string name="description_post_like">Описание поста</string>
     <string name="post_text">Содержимое поста</string>
     <string name="edit">Изменить</string>
-    <string name="cancel_edit">cancel edit</string>
+    <string name="cancel_edit">отменить редактирование</string>
+    <string name="chooser_share_post"> Поделиться с окружением </string>
+    <string name="description_post_save">Сохранить новый пост</string>
+    <string name="text_is_blank" >Входящий текст пустой</string>
+    <string name="unknown_type">Тип входящих данных неизвестен!</string>
+    <string name="video_image">Видео</string>
+    <string name="Content">текст поста</string>
+    <string name="play">Воспроизвести</string> />
 </resources>

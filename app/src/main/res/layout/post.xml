@@ -35,7 +35,7 @@
         style="@style/Widget.AppTheme.MenuCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
+        android:checkable="false"
         android:src="@drawable/ic_menu_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/author_name"
@@ -66,7 +66,8 @@
         android:id="@+id/postText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/barrier1" />
+        app:layout_constraintTop_toBottomOf="@id/barrier1"
+        tools:text="@string/Content" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/likes"
@@ -83,7 +84,7 @@
         style="@style/Widget.AppTheme.ShareCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
+        android:checkable="false"
         app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toBottomOf="@id/postText"
         tools:text="100" />
@@ -99,6 +100,38 @@
         android:src="@drawable/ic_eye_24dp"
         app:layout_constraintEnd_toStartOf="@id/amount_looking"
         app:layout_constraintTop_toBottomOf="@id/postText" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="looking" />
+
+    <ImageView
+        android:id="@+id/videoImage"
+        android:layout_width="300dp"
+        android:layout_height="122dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/video_image"
+        android:foregroundGravity="center"
+        android:src="@mipmap/ic_video_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/looking"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="39dp" />
+
+    <ImageButton
+        android:id="@+id/play_video"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@string/play"
+        app:layout_constraintBottom_toBottomOf="@+id/videoImage"
+        app:layout_constraintEnd_toEndOf="@+id/videoImage"
+        app:layout_constraintStart_toStartOf="@+id/videoImage"
+        app:layout_constraintTop_toTopOf="@+id/videoImage"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/amount_looking"

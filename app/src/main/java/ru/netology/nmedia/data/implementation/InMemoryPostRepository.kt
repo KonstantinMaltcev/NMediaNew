@@ -15,7 +15,8 @@ class InMemoryPostRepository : PostRepository {
                 id = index + 1L,
                 author = "Константин Мальцев",
                 content = "Text $index som content: Какойто текст.......",
-                published = "17.06.2022"
+                published = "17.06.2022",
+                video = "https://www.youtube.com/user/androiddevelopers"
             )
         }
     )
@@ -44,10 +45,21 @@ class InMemoryPostRepository : PostRepository {
         data.value = posts.map {
             if (it.id != id) it else {
                 it.copy(
-                    shares = countShareByMe(it.shares)
+                    shares = it.shares + 1
                 )
             }
         }
+    }
+
+    override fun shareUriById(id: Long) {
+//        data.value = posts.map {
+//            if (it.id != id) it else {
+//                it.copy(
+//                    video = it.video
+//                )
+//            }
+//        }
+        data.value = posts.filter { it.id == id }
     }
 
     override fun removeById(id: Long) {
@@ -73,11 +85,8 @@ class InMemoryPostRepository : PostRepository {
         data.value = content
     }
 
-
     private fun countLikeByMe(liked: Boolean, like: Int) =
         if (liked) like - 1 else like + 1
-
-    private fun countShareByMe(share: Int) = share + 1
 
     private companion object {
         const val GENERATED_AMOUNT_POST = 1000
