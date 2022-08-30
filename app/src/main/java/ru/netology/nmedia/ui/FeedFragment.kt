@@ -69,7 +69,7 @@ open class FeedFragment : Fragment() {
 
         val adapter = PostsAdapter(viewModel)
 
-        binding.PostsRecyclerView.adapter = adapter
+        binding.PostRecyclerView.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
