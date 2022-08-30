@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -119,12 +118,6 @@ class PostDetailsFragment : Fragment() {
             likesIcon.isChecked = post.likedByMe
             repostIcon.text = ViewsUtils.countFormatter(resources, post.shares)
             viewsIcon.text = ViewsUtils.countFormatter(resources, post.viewCount)
-            if (post.video != null) {
-                videoFrameInPost.root.visibility = View.VISIBLE
-                videoFrameInPost.videoUrl.text = post.video
-            } else {
-                videoFrameInPost.root.visibility = View.GONE
-            }
         }
     }
 }
