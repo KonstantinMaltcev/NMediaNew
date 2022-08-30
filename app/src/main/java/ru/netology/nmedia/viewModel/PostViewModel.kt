@@ -3,79 +3,93 @@ package ru.netology.nmedia.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import ru.netology.nmedia.adapter.PostInteractionListener
+import ru.netology.nmedia.adapter.PostInterActionListener
 import ru.netology.nmedia.data.PostRepository
 import ru.netology.nmedia.data.implementation.FilePostRepository
-import ru.netology.nmedia.data.implementation.InMemoryPostRepository
-import ru.netology.nmedia.data.implementation.SharedPreferencesPostRepository
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.utils.SingleLiveEvent
 
 class PostViewModel(
     application: Application
-) : AndroidViewModel(application),
-    PostInteractionListener {
+) : AndroidViewModel(application), PostInterActionListener {
 
     private val repository: PostRepository = FilePostRepository(application)
 
     val data by repository::data
 
-    val sharePostContent = SingleLiveEvent<Post>()
+//    var contentGeneratorButtonVisibility = !repository.contentGeneratorButtonWasClicked
 
-    val sharePostUriContent = SingleLiveEvent<Post>()
+    val sharePostContent = SingleLiveEvent<String>()
 
-    val currentPost = MutableLiveData<Post?>(/*value*/null)
+    val navigateToPostContentScreenEvent = SingleLiveEvent<String>()
 
-    val editedPost = MutableLiveData<Post?>(/*value*/null)
+    val navigateToPostDetails = SingleLiveEvent<Long>()
+
+    val currentPost = MutableLiveData<Post?>(null)
+
+    val playVideoContent = SingleLiveEvent<String>()
 
     fun onSaveButtonClicked(content: String) {
+
         if (content.isBlank()) return
 
-        val editPost = currentPost.value?.copy(
+        val post = currentPost.value?.copy(
             content = content
         ) ?: Post(
             id = PostRepository.NEW_POST_ID,
             author = "Konstantin",
+            published = "30/08/2022",
             content = content,
-            published = "18/06/2022",
-            video = "https://www.youtube.com/user/androiddevelopers"
+            likedByMe = false,
+            likes = 0,
+            isReposted = false,
+            shares = 0,
+            viewCount = 0,
+            video = null
         )
-        repository.save(editPost)
+        repository.save(post)
         currentPost.value = null
     }
 
-    fun onEditButtonClicked(content: String) {
-        if (content.isBlank()) return
-        val editPost = editedPost.value?.copy(
-            content = content
+    fun onAddClicked() {
+        navigateToPostContentScreenEvent.call()
+    }
+
+    //region PostInterActionListener
+
+    override fun onLikeClicked(post: Post) = repository.like(post.id)
+
+    override fun onShareClicked(post: Post) {
+        repository.share(post.id)
+        sharePostContent.value = post.content
+    }
+
+    override fun onRemoveClicked(post: Post) = repository.delete(post.id)
+
+    override fun onEditClicked(post: Post) {
+        if (post.content.isBlank()) return
+       print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        val editPost = currentPost.value?.copy(
+            content = post.content
         )
+        print(post.content)
         if (editPost != null) {
             repository.save(editPost)
         }
-        editedPost.value = null
+        currentPost.value = null
     }
 
-    override fun onShareClicked(post: Post) {
-        sharePostContent.value = post
-        repository.shareById(post.id)
+    override fun onVideoClicked(post: Post) {
+        post.video?.let {
+            playVideoContent.value = it
+        }
     }
 
-    override fun onShareUriClicked(post: Post) {
-        sharePostUriContent.value = post
-        repository.shareUriById(post.id)
+    override fun viewPostDetails(post: Post) {
+        currentPost.value = post
+        navigateToPostDetails.value = post.id
     }
 
-    // region PostInteractionListener
 
-    override fun onLikeClicked(post: Post) = repository.likeById(post.id)
-
-    override fun onRemoveClicked(post: Post) = repository.removeById(post.id)
-
-    override fun onEditClicked(post: Post) {
-        editedPost.value = post
-    }
-
-    // endregion PostInteractionListener
-
+    //endregion
 }

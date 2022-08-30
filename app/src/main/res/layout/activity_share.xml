@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ShareActivity">
+    tools:context=".ui.AppActivity">
 
     <EditText
         android:id="@+id/edit_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:hint="@string/post_text"
         android:background="@android:color/transparent"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:hint="@string/post_text"
-        android:autofillHints="@string/post_text" />
+        tools:ignore="LabelFor"
+        android:autofillHints="" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/fab"
@@ -24,7 +25,7 @@
         android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_share"
+        android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/description_post_save"
@@ -32,3 +33,4 @@
         app:srcCompat="@drawable/ic_ok_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

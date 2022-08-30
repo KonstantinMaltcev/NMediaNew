@@ -11,5 +11,8 @@ data class Post(
     var likes: Int = 0,
     var likedByMe: Boolean = false,
     var shares: Int = 0,
+    val isReposted: Boolean,
+    val viewCount: Int,
+    var viewsCount: Int = 0,
     var video: String?
 )

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="1">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/postEditGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@android:color/background_light"
+        android:visibility="visible"
+        app:constraint_referenced_ids="avatarEditIcon, editModeTitle, content, postEditCancelIcon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/avatarEditIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:layout_marginBottom="@dimen/common_spacing"
+        android:background="@android:color/background_light"
+        android:contentDescription="@string/avatar_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit_24dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/editModeTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:alpha="1"
+        android:ellipsize="end"
+        android:singleLine="false"
+        android:text="@string/edit_title"
+        app:layout_constraintBottom_toTopOf="@id/content"
+        app:layout_constraintStart_toStartOf="@id/content"
+        app:layout_constraintTop_toTopOf="@id/avatarEditIcon"
+
+        tools:text="Название автора поста" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:background="@android:color/background_light"
+        android:ellipsize="end"
+        android:singleLine="false"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/avatarEditIcon"
+        app:layout_constraintEnd_toStartOf="@id/postEditCancelIcon"
+        app:layout_constraintStart_toEndOf="@id/avatarEditIcon"
+        app:layout_constraintTop_toBottomOf="@id/editModeTitle"
+        tools:text="Some post text" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/postEditCancelIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:layout_marginEnd="@dimen/common_spacing"
+        android:background="@android:color/background_light"
+        android:contentDescription="@string/more_info"
+        android:src="@drawable/ic_post_edit_cancel_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/avatarEditIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/avatarEditIcon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

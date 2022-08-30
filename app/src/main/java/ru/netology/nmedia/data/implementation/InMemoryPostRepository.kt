@@ -1,94 +1,87 @@
-package ru.netology.nmedia.data.implementation
-
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.dto.Post
-
-class InMemoryPostRepository : PostRepository {
-
-    private var nextId = GENERATED_AMOUNT_POST.toLong()
-
-    override val data = MutableLiveData(
-        List(GENERATED_AMOUNT_POST) { index ->
-            Post(
-                id = index + 1L,
-                author = "Константин Мальцев",
-                content = "Text $index som content: Какойто текст.......",
-                published = "17.06.2022",
-                video = "https://www.youtube.com/user/androiddevelopers"
-            )
-        }
-    )
-
-    private var posts
-        get() =
-            checkNotNull(data.value) {
-                Log.e("error", "Data value should be not null")
-            }
-        set(value) {
-            data.value = value
-        }
-
-    override fun likeById(id: Long) {
-        data.value = posts.map {
-            if (it.id != id) it else {
-                it.copy(
-                    likedByMe = !it.likedByMe,
-                    likes = countLikeByMe(it.likedByMe, it.likes)
-                )
-            }
-        }
-    }
-
-    override fun shareById(id: Long) {
-        data.value = posts.map {
-            if (it.id != id) it else {
-                it.copy(
-                    shares = it.shares + 1
-                )
-            }
-        }
-    }
-
-    override fun shareUriById(id: Long) {
+//package ru.netology.nmedia.data.implementation
+//
+//import androidx.lifecycle.MutableLiveData
+//import ru.netology.nmedia.dto.Post
+//import ru.netology.nmedia.data.PostRepository
+//import ru.netology.nmedia.data.impl.Data
+//
+//class InMemoryPostRepository : PostRepository {
+//    private var nextID = GENERATED_POSTS_AMOUNT.toLong()
+//    private val someData = Data()
+//    override val data = MutableLiveData(
+//        List(GENERATED_POSTS_AMOUNT) { index ->
+//            Post(
+//                id = index + 1L,
+//                authorName = "Netology",
+//                date = "13/06/2022",
+//                text = "#${index + 1} \n" + someData.getRandomContent(),
+//                isLiked = false,
+//                likesCount = 999,
+//                isReposted = false,
+//                repostsCount = 9995,
+//                viewesCount = 1299999,
+//                videoUrl = someData.getRandomURL()
+//            )
+//        }
+//    )
+//    override var contentGeneratorButtonWasClicked: Boolean
+//        get() = ("Not yet implemented")
+//        set(value) {}
+//
+//    private val posts
+//        get() = checkNotNull(data.value) {
+//            "Error. Data is null"
+//        }
+//
+//    override fun like(postID: Long) {
 //        data.value = posts.map {
-//            if (it.id != id) it else {
+//            if (it.id != postID) it
+//            else {
 //                it.copy(
-//                    video = it.video
+//                    isLiked = !it.isLiked,
+//                    likesCount = if (!it.isLiked) it.likesCount + 1 else it.likesCount - 1,
 //                )
 //            }
 //        }
-        data.value = posts.filter { it.id == id }
-    }
-
-    override fun removeById(id: Long) {
-        data.value = posts.filter { it.id != id }
-    }
-
-    override fun save(post: Post) {
-        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
-    }
-
-    private fun insert(post: Post) {
-        data.value = listOf(
-            post.copy(
-                id = ++nextId
-            )
-        ) + posts
-    }
-
-    private fun update(post: Post) {
-        val content = posts.map {
-            if (post.id == it.id) post else it
-        }
-        data.value = content
-    }
-
-    private fun countLikeByMe(liked: Boolean, like: Int) =
-        if (liked) like - 1 else like + 1
-
-    private companion object {
-        const val GENERATED_AMOUNT_POST = 1000
-    }
-}
+//    }
+//
+//    override fun share(postID: Long) {
+//
+//        data.value = posts.map {
+////            print("0")
+//            if (it.id != postID) it
+//            else {
+//                it.copy(
+//                    repostsCount = it.repostsCount + 1
+//                )
+//            }
+//        }
+//    }
+//
+//    override fun delete(postID: Long) {
+//        data.value = posts.filterNot { it.id == postID }
+//    }
+//
+//    override fun save(post: Post) {
+//        if (post.id == PostRepository.NEW_POST_ID) insert(post) else update(post)
+//    }
+//
+//    override fun generateContent() {
+//
+//    }
+//
+//    private fun update(post: Post) {
+//        data.value = posts.map {
+//            if (it.id == post.id) post else it
+//        }
+//    }
+//
+//    private fun insert(post: Post) {
+//        data.value = listOf(post.copy(id = ++nextID)) + posts
+//    }
+//
+//    private companion object {
+//        const val GENERATED_POSTS_AMOUNT = 1000
+//    }
+//
+//}
