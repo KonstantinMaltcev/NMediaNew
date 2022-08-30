@@ -1,31 +1,22 @@
 <resources>
     <string name="app_name">NMedia</string>
-    <string name="hello">Hello world!</string>
     <string name="avatar_description">Avatar</string>
-    <string name="avatar">Avatar</string>
     <string name="remove">Remove</string>
-    <string name="description_post_like">Description post like</string>
-    <string name="post_text">Post text</string>
     <string name="edit">Edit</string>
-    <string name="cancel_edit">cancel edit</string>
     <string name="chooser_share_post">Share post</string>
     <string name="description_post_save">Save new post</string>
-    <string name="text_is_blank">Incoming text is empty </string>
-    <string name="unknown_type">Incoming type is unknown</string>
     <string name="video_image">video_image</string>
     <string name="Content">Post text</string>
-    <string name="play">Play</string>
     <string name="poster_of_video">Poster of video</string>
     <string name="url">url</string>
     <string name="more_info">Show hide information</string>
     <string name="add_post">Add post</string>
     <string name="suffix_thousands">K</string>
     <string name="suffix_millions">M</string>
-    <string name="edit_title">Edit mode</string>
     <string name="formatted_like_rep_view_count_without_suffix" translatable="false">%1$d</string>
     <string name="formatted_like_rep_view_count_two_dig_suf" translatable="false">%1$d.%2$d%3$s</string>
-    <string name="formatted_like_rep_view_thousands_one_dig_suf" translatable="false">%1$d%2$s</string>
-    <string name="generate_posts">Generate posts</string>
-    <string name="generate_content_tooltip_text">Generate Content</string>
+    <string name="formatted_like_rep_view_thousands_one_dig_suf" translatable="false">%1$d%2$s</string><![CDATA[
+
     />
+]]>
 </resources>

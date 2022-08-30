@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">НМедиа</string>
-    <string name="hello">Привет, НМедиа!</string>
-    <string name="avatar">Аватарка</string>
     <string name="avatar_description">Аватар автора поста</string>
     <string name="remove">Удалить</string>
-    <string name="description_post_like">Описание поста</string>
-    <string name="post_text">Содержимое поста</string>
     <string name="edit">Изменить</string>
-    <string name="cancel_edit">отменить редактирование</string>
     <string name="chooser_share_post"> Поделиться с окружением </string>
     <string name="description_post_save">Сохранить новый пост</string>
-    <string name="text_is_blank">Входящий текст пустой</string>
-    <string name="unknown_type">Тип входящих данных неизвестен!</string>
     <string name="video_image">Видео</string>
     <string name="Content">текст поста</string>
-    <string name="play">Воспроизвести</string>
     <string name="poster_of_video">Превью ролика</string>
     <string name="url">url</string>
     <string name="more_info">Показать дополнительную информацию</string>
     <string name="add_post">Добавить пост</string>
     <string name="suffix_thousands">К</string>
-    <string name="suffix_millions">М</string>
-    <string name="edit_title">Режим редактора</string>
-    <string name="generate_posts">Сгенерировать посты</string>
-    <string name="generate_content_tooltip_text">Генерировать посты</string>
+    <string name="suffix_millions">М</string><![CDATA[
+
+
     />
+]]>
 </resources>

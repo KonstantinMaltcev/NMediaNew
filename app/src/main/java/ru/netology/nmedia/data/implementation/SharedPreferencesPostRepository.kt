@@ -1,4 +1,4 @@
-//package ru.netology.nmedia.data.implementation
+package ru.netology.nmedia.data.implementation//package ru.netology.nmedia.data.implementation
 //
 //import android.app.Application
 //import android.content.Context

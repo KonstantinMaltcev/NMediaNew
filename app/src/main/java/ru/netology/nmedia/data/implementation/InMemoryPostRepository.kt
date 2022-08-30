@@ -1,4 +1,4 @@
-//package ru.netology.nmedia.data.implementation
+package ru.netology.nmedia.data.implementation//package ru.netology.nmedia.data.implementation
 //
 //import androidx.lifecycle.MutableLiveData
 //import ru.netology.nmedia.dto.Post
