@@ -6,54 +6,25 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
-import ru.netology.nmedia.databinding.PostBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.databinding.PostBinding
+import ru.netology.nmedia.utils.ViewsUtils
 
 
-class PostsAdapter(
-    private val interactionListener: PostInteractionListener
-) : ListAdapter<Post, PostsAdapter.ViewHolder>(DiffCallBack) {
+internal class PostsAdapter(
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = PostBinding.inflate(inflater, parent, /*attach to parent*/ false)
-        return ViewHolder(binding, interactionListener)
-    }
+    private val interActionListener: PostInterActionListener
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
+) : ListAdapter<Post, PostsAdapter.PostViewHolder>(DiffCallBack) {
 
-    companion object DiffCallBack : DiffUtil.ItemCallback<Post>() {
-
-        override fun areItemsTheSame(oldItem: Post, newItem: Post) =
-            oldItem.id == newItem.id
-
-        override fun areContentsTheSame(oldItem: Post, newItem: Post) =
-            oldItem == newItem
-    }
-
-
-    inner class ViewHolder(
+    inner class PostViewHolder(
         private val binding: PostBinding,
-        listener: PostInteractionListener
+        listener: PostInterActionListener
+
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var post: Post
-
-        init {
-            binding.likes.setOnClickListener { listener.onLikeClicked(post) }
-            binding.menu.setOnClickListener { popupMenu.show() }
-            binding.share.setOnClickListener { listener.onShareClicked(post) }
-            binding.playVideo.setOnClickListener {
-                listener.onShareUriClicked(post)
-            }
-            binding.videoImage.setOnClickListener {
-                listener.onShareUriClicked(post)
-            }
-        }
 
         private val popupMenu by lazy {
             PopupMenu(itemView.context, binding.menu).apply {
@@ -64,8 +35,9 @@ class PostsAdapter(
                             listener.onRemoveClicked(post)
                             true
                         }
-                        R.id.edit_post -> {
+                        R.id.edit -> {
                             listener.onEditClicked(post)
+
                             true
                         }
                         else -> false
@@ -74,29 +46,55 @@ class PostsAdapter(
             }
         }
 
+        init {
+            binding.likes.setOnClickListener {
+                listener.onLikeClicked(post)
+            }
+            binding.share.setOnClickListener {
+                listener.onShareClicked(post)
+            }
+
+            binding.videoFrameInPost.setOnClickListener {
+                listener.onVideoClicked(post)
+            }
+
+            binding.menu.setOnClickListener { popupMenu.show() }
+
+            binding.root.setOnClickListener{listener.viewPostDetails(post)}
+        }
+
         fun bind(post: Post) {
             this.post = post
+            val resources = binding.root.resources
             with(binding) {
+                avatarImage.setImageResource(R.drawable.ic_launcher_foreground)
                 authorName.text = post.author
-                published.text = post.published
                 postText.text = post.content
-                likes.text = reductionNumbers(post.likes)
-                share.text = reductionNumbers(post.shares)
+                published.text = post.published
+                likes.text = ViewsUtils.countFormatter(resources, post.likes)
                 likes.isChecked = post.likedByMe
+                share.text = ViewsUtils.countFormatter(resources, post.shares)
+                viewsIcon.text = ViewsUtils.countFormatter(resources, post.viewCount)
             }
         }
-
-        private fun reductionNumbers(count: Int): String {
-            return when (count) {
-                in 0..999 -> count.toString()
-                in 1000..1099 -> "${count / 1000}K"
-                in 1100..9999 -> "${count / 1000}.${count % 10}K"
-                in 10_000..999_999 -> "${count / 1000}K"
-                in 1_000_000..1_099_999 -> "${count / 1_000_000}M"
-                else -> "${(count / 10.pow(2)) / 10_000}.${((count / 1000) / 10.pow(2)) % 10}M"
-            }
-        }
-
-        private fun Int.pow(x: Int): Int = (2..x).fold(this) { R, _ -> R * this }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = PostBinding.inflate(inflater, parent, false)
+        return PostViewHolder(binding, interActionListener)
+    }
+
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+    private object DiffCallBack : DiffUtil.ItemCallback<Post>() {
+        override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean =
+            oldItem == newItem
+    }
+
 }
