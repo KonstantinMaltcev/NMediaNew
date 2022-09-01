@@ -26,7 +26,7 @@ class PostContentFragment: Fragment() {
         binding.edit.requestFocus()
         binding.edit.setText(args.initialContent)
 
-        binding.bottomAppBar.setOnClickListener {
+        binding.okButton.setOnClickListener {
             onOkButtonClicked(binding)
         }
     }.root

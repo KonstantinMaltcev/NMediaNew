@@ -5,7 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.adapter.PostInterActionListener
 import ru.netology.nmedia.data.PostRepository
-import ru.netology.nmedia.data.implementation.FilePostRepository
+import ru.netology.nmedia.data.implementation.PostRepositoryImpl
+import ru.netology.nmedia.db.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.utils.SingleLiveEvent
 
@@ -13,11 +14,13 @@ class PostViewModel(
     application: Application
 ) : AndroidViewModel(application), PostInterActionListener {
 
-    private val repository: PostRepository = FilePostRepository(application)
+    private val repository: PostRepository = PostRepositoryImpl(
+        dao = AppDb.getInstance(
+            context = application
+        ).postDao
+    )
 
     val data by repository::data
-
-//    var contentGeneratorButtonVisibility = !repository.contentGeneratorButtonWasClicked
 
     val sharePostContent = SingleLiveEvent<String>()
 
@@ -25,7 +28,7 @@ class PostViewModel(
 
     val navigateToPostDetails = SingleLiveEvent<Long>()
 
-    val currentPost = MutableLiveData<Post?>(null)
+    val currentPost = SingleLiveEvent<Post?>()
 
     val playVideoContent = SingleLiveEvent<String>()
 
@@ -45,7 +48,7 @@ class PostViewModel(
             isReposted = false,
             shares = 0,
             viewCount = 0,
-            video = null
+            video = "https://lordserial.site/4303-teoriya-bolshogo-vzryva-sezon-34.html"
         )
         repository.save(post)
         currentPost.value = null
@@ -67,16 +70,8 @@ class PostViewModel(
     override fun onRemoveClicked(post: Post) = repository.delete(post.id)
 
     override fun onEditClicked(post: Post) {
-        if (post.content.isBlank()) return
-       print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        val editPost = currentPost.value?.copy(
-            content = post.content
-        )
-        print(post.content)
-        if (editPost != null) {
-            repository.save(editPost)
-        }
-        currentPost.value = null
+        currentPost.value = post
+        navigateToPostContentScreenEvent.value = post.content
     }
 
     override fun onVideoClicked(post: Post) {

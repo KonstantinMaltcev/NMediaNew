@@ -13,6 +13,5 @@ data class Post(
     var shares: Int = 0,
     val isReposted: Boolean,
     val viewCount: Int,
-    var viewsCount: Int = 0,
     var video: String?
 )
