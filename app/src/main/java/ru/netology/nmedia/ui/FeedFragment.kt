@@ -22,43 +22,43 @@ open class FeedFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.sharePostContent.observe(this) { postContent ->
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, postContent)
-                type = "text/plain"
-            }
-            val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
-            startActivity(shareIntent)
-        }
-
-        setFragmentResultListener(
-            requestKey = PostContentFragment.REQUEST_KEY
-        ) { requestKey, bundle ->
-            if (requestKey != PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
-            val newPostContent = bundle.getString(
-                PostContentFragment.RESULT_KEY
-            ) ?: return@setFragmentResultListener
-            viewModel.onSaveButtonClicked(newPostContent)
-        }
-
-        viewModel.playVideoContent.observe(this) { postUrl ->
-            val intent = Intent().apply {
-                action = Intent.ACTION_VIEW
-                data = Uri.parse(postUrl)
-            }
-            startActivity(intent)
-        }
-
-        viewModel.navigateToPostContentScreenEvent.observe(this) { initialContent ->
-            val direction = FeedFragmentDirections.toPostContentFragment(initialContent)
-            findNavController().navigate(direction)
-        }
-
-        viewModel.navigateToPostDetails.observe(this){postID ->
-            val direction = FeedFragmentDirections.toPostDetailsFragment(postID.toString())
-            findNavController().navigate(direction)
-        }
+//        viewModel.sharePostContent.observe(this) { postContent ->
+//            val intent = Intent().apply {
+//                action = Intent.ACTION_SEND
+//                putExtra(Intent.EXTRA_TEXT, postContent)
+//                type = "text/plain"
+//            }
+//            val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+//            startActivity(shareIntent)
+//        }
+//
+////        setFragmentResultListener(
+////            requestKey = PostContentFragment.REQUEST_KEY
+////        ) { requestKey, bundle ->
+////            if (requestKey != PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
+////            val newPostContent = bundle.getString(
+////                PostContentFragment.RESULT_KEY
+////            ) ?: return@setFragmentResultListener
+////            viewModel.onSaveButtonClicked(newPostContent)
+////        }
+//
+//        viewModel.playVideoContent.observe(this) { postUrl ->
+//            val intent = Intent().apply {
+//                action = Intent.ACTION_VIEW
+//                data = Uri.parse(postUrl)
+//            }
+//            startActivity(intent)
+//        }
+//
+//        viewModel.navigateToPostContentScreenEvent.observe(this) { initialContent ->
+//            val direction = FeedFragmentDirections.toPostContentFragment(initialContent)
+//            findNavController().navigate(direction)
+//        }
+//
+//        viewModel.navigateToPostDetails.observe(this){postID ->
+//            val direction = FeedFragmentDirections.toPostDetailsFragment(postID.toString())
+//            findNavController().navigate(direction)
+//        }
     }
 
     override fun onCreateView(
@@ -74,9 +74,58 @@ open class FeedFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             adapter.submitList(posts)
         }
+        viewModel.sharePostContent.observe(viewLifecycleOwner) { postContent ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, postContent)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+            startActivity(shareIntent)
+        }
 
+//        setFragmentResultListener(
+//            requestKey = PostContentFragment.REQUEST_KEY
+//        ) { requestKey, bundle ->
+//            if (requestKey != PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
+//            val newPostContent = bundle.getString(
+//                PostContentFragment.RESULT_KEY
+//            ) ?: return@setFragmentResultListener
+//            viewModel.onSaveButtonClicked(newPostContent)
+//        }
+
+        viewModel.playVideoContent.observe(viewLifecycleOwner) { postUrl ->
+            val intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(postUrl)
+            }
+            startActivity(intent)
+        }
+
+        viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { initialContent ->
+            val direction = FeedFragmentDirections.toPostContentFragment(initialContent)
+            findNavController().navigate(direction)
+        }
+
+        viewModel.navigateToPostDetails.observe(viewLifecycleOwner){postID ->
+            val direction = FeedFragmentDirections.toPostDetailsFragment(postID.toString())
+            findNavController().navigate(direction)
+        }
         binding.fab.setOnClickListener {
             viewModel.onAddClicked()
         }
     }.root
+
+    override fun onResume() {
+        super.onResume()
+        setFragmentResultListener(
+            requestKey = PostContentFragment.REQUEST_KEY
+        ) { requestKey, bundle ->
+            if (requestKey != PostContentFragment.REQUEST_KEY) return@setFragmentResultListener
+            val newPostContent = bundle.getString(
+                PostContentFragment.RESULT_KEY
+            ) ?: return@setFragmentResultListener
+            viewModel.onSaveButtonClicked(newPostContent)
+        }
+    }
 }
