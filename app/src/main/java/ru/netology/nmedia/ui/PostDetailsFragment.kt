@@ -28,12 +28,14 @@ class PostDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = PostDetailsFragmentBinding.inflate(layoutInflater, container, false).also { binding ->
 
-        val post = viewModel.currentPost.value
-
+//        val post = viewModel.currentPost.value
+        val postDetail = viewModel.data.value?.find { it.id == viewModel.navigateToPostDetails.value }
         viewModel.data.observe(viewLifecycleOwner) { posts ->
-            val sortedPosts = posts.filter { it.id == post?.id }
-            if (sortedPosts.isNotEmpty()) {
-                binding.render(sortedPosts.first())
+            val postId = viewModel.navigateToPostDetails.value
+            val sortedPosts = posts.find { it.id == postId }
+//            if (sortedPosts) {
+            if (sortedPosts != null) {
+                binding.render(sortedPosts)
             } else {
                 findNavController().navigateUp()
             }
@@ -67,30 +69,30 @@ class PostDetailsFragment : Fragment() {
             startActivity(intent)
         }
 
-        post?.let {
+        postDetail?.let {
             binding.likesIcon.setOnClickListener {
-                viewModel.onLikeClicked(post)
+                viewModel.onLikeClicked(postDetail)
             }
 
             binding.repostIcon.setOnClickListener {
-                viewModel.onShareClicked(post)
+                viewModel.onShareClicked(postDetail)
             }
 
             binding.videoFrameInPost.videoPoster.setOnClickListener {
-                viewModel.onVideoClicked(post)
+                viewModel.onVideoClicked(postDetail)
             }
 
             val popupMenu by lazy {
-                PopupMenu(layoutInflater.context, binding.options).apply {
+                PopupMenu(layoutInflater.context, binding.optionsMenu).apply {
                     inflate(R.menu.options_post)
                     setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.remove -> {
-                                viewModel.onRemoveClicked(post)
+                                viewModel.onRemoveClicked(postDetail)
                                 true
                             }
                             R.id.edit -> {
-                                viewModel.onEditClicked(post)
+                                viewModel.onEditClicked(postDetail)
                                 true
                             }
                             else -> false
@@ -98,7 +100,7 @@ class PostDetailsFragment : Fragment() {
                     }
                 }
             }
-            binding.options.setOnClickListener { popupMenu.show() }
+            binding.optionsMenu.setOnClickListener { popupMenu.show() }
         }
 
         viewModel.navigateToPostContentScreenEvent.observe(viewLifecycleOwner) { initialContent ->

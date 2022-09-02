@@ -27,7 +27,7 @@
         android:singleLine="true"
         android:text="random text"
         app:layout_constraintBottom_toTopOf="@id/data"
-        app:layout_constraintEnd_toStartOf="@id/options"
+        app:layout_constraintEnd_toStartOf="@id/options_menu"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -48,9 +48,9 @@
         tools:text="04.06.2022"
         tools:ignore="HardcodedText" />
 
-    <!-- optionsIcon -->
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/options"
+        android:id="@+id/options_menu"
         style="@style/Widget.AppTheme.MenuCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="avatar, data, options" />
+        app:constraint_referenced_ids="avatar, data, options_menu" />
 
     <ScrollView
         android:id="@+id/detailsScroll"

@@ -40,11 +40,11 @@ class PostViewModel(
             published = "01/09/2022",
             content = content,
             likedByMe = false,
-            likes = 0,
+            likes = 12,
             isReposted = false,
             shares = 0,
             viewCount = 0,
-            video = null
+            video = "https://lordserial.site/4303-teoriya-bolshogo-vzryva-sezon-34.html"
         )
         repository.save(post)
         currentPost.value = null
@@ -77,7 +77,6 @@ class PostViewModel(
     }
 
     override fun viewPostDetails(post: Post) {
-        currentPost.value = post
         navigateToPostDetails.value = post.id
     }
 
