@@ -15,8 +15,9 @@
     <string name="suffix_millions">M</string>
     <string name="formatted_like_rep_view_count_without_suffix" translatable="false">%1$d</string>
     <string name="formatted_like_rep_view_count_two_dig_suf" translatable="false">%1$d.%2$d%3$s</string>
-    <string name="formatted_like_rep_view_thousands_one_dig_suf" translatable="false">%1$d%2$s</string><![CDATA[
-
+    <string name="formatted_like_rep_view_thousands_one_dig_suf" translatable="false">%1$d%2$s</string>
+    <string name="notification_user_liked">User %1$s liked %2$s\'s post</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
     />
-]]>
 </resources>

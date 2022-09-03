@@ -34,5 +34,4 @@ interface PostDao {
 
     @Query("DELETE FROM posts WHERE id = :id")
     fun delete(id: Long)
-
 }

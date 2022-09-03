@@ -13,9 +13,9 @@
     <string name="more_info">Показать дополнительную информацию</string>
     <string name="add_post">Добавить пост</string>
     <string name="suffix_thousands">К</string>
-    <string name="suffix_millions">М</string><![CDATA[
-
-
+    <string name="suffix_millions">М</string>
+    <string name="notification_user_liked">%1$s поставил лайк посту %2$s</string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
     />
-]]>
 </resources>
